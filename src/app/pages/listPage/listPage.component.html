@@ -1,0 +1,61 @@
+<h1 class="text-center text-black">Listado de Prestamos</h1>
+
+<mat-divider></mat-divider>
+<div class="m-2 shadow-sm">
+  <div class="mat-elevation-28">
+    <div class="table-responsive">
+      <h2 class="text-center text-primary">Total de Registros</h2>
+      <table class="table table-stripped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">ID Usuario</th>
+            <th scope="col">Fecha Prestamo</th>
+            <th scope="col">Fecha de Devolución</th>
+            <th scope="col">Tipo Usuario</th>
+            <th scope="col">--Acciones--</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (prestamo of listadoPrestamos(); track $index) {
+          <tr>
+            <td>{{ prestamo.id }}</td>
+            <td>{{ prestamo.isbn }}</td>
+            <td>{{ prestamo.identificacionUsuario }}</td>
+            <td>{{ prestamo.fechaPrestamo }}</td>
+            <td>{{ prestamo.fechaMaximaDevolucion }}</td>
+            <td>{{ prestamo.tipoUsuarioId | tipoUsuario }}</td>
+            <td class="d-flex justify-content-around">
+              <button
+                mat-icon-button
+                color="primary"
+                class="btn btn-outline-info"
+                [routerLink]="['detalle/', prestamo.id]"
+              >
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                mat-fab-button
+                color="accent"
+                class="btn btn-outline-success"
+                [routerLink]="['editar/', prestamo.id]"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                class="btn btn-outline-danger"
+                (click)="eliminar(prestamo.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
