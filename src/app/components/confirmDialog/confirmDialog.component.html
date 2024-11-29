@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <h2 class="text-center" mat-dialog-title>Eliminar un prestamo</h2>
+  <h3 class="text-danger text-center">
+    ¿Estas seguro de eliminar el registro?
+  </h3>
+  <div mat-dialog-content class="text-center">
+    <p>No se puede deshacer</p>
+  </div>
+  <mat-dialog-actions class="d-flex justify-content-around">
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="onNoConfirm()"
+      class="btn btn-sm btn-outline-primary"
+    >
+      NO
+    </button>
+    <button
+      mat-stroked-button
+      (click)="onConfirm()"
+      class="btn btn-sm btn-outline-danger"
+      cdkFocusInitial
+    >
+      SI
+    </button>
+  </mat-dialog-actions>
+</div>
