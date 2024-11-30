@@ -1,0 +1,56 @@
+<h2 class="text-center text-danger">Ver detalles del prestamo</h2>
+@if (prestamo()) {
+<mat-card>
+  <mat-card-header>
+    <div mat-card-title class="mx-auto">
+      <h3 class="text-center text-success">Detalle del Prestamo</h3>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-md-6">
+        <button #showImage class="btn btn-info btn-block">Ver Imagen</button>
+        @defer (on interaction(showImage)) {
+        <img
+          mat-card-image
+          [src]="imagenLibro"
+          class="card-img img-thumbnail"
+          alt="Imagen del libro"
+        />
+        }@placeholder {
+        <p>Espera que se cargue la imagen</p>
+        }
+      </div>
+      <div class="col-md-6">
+        <h3 class="text-primary">ISBN</h3>
+        <p>
+          {{ prestamo()?.isbn }}
+        </p>
+        <h3 class="text-primary">Identificación del Usuario</h3>
+        <p>
+          {{ prestamo()?.identificacionUsuario }}
+        </p>
+        <h3 class="text-primary">Fecha de Devolución</h3>
+        <p>
+          {{ prestamo()?.fechaMaximaDevolucion }}
+        </p>
+        <h3 class="text-primary">Tipo de Usuario</h3>
+        <p>
+          {{ prestamo()!.tipoUsuarioId | tipoUsuario }}
+        </p>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button
+      class="btn btn-outline-dark"
+      mat-button
+      color="warn"
+      (click)="regresar()"
+    >
+      Regresar al Listado
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
+}
