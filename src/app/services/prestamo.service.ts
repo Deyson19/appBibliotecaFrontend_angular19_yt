@@ -18,10 +18,8 @@ export class PrestamoService {
       `${this.baseUrl()}/api/Prestamo`
     );
   }
-  getPrestamo(id: number): Observable<IRespuestaAPI<Prestamo>> {
-    return this.http.get<IRespuestaAPI<Prestamo>>(
-      `${this.baseUrl()}/api/Prestamo/${id}`
-    );
+  getPrestamo(id: number): Observable<Prestamo> {
+    return this.http.get<Prestamo>(`${this.baseUrl()}/api/Prestamo/${id}`);
   }
 
   postPrestamo(model: ICrearPrestamo): Observable<IRespuestaAPI<Prestamo>> {
@@ -34,14 +32,14 @@ export class PrestamoService {
     id: number,
     model: ICrearPrestamo
   ): Observable<IRespuestaAPI<Prestamo>> {
-    return this.http.post<IRespuestaAPI<Prestamo>>(
+    return this.http.put<IRespuestaAPI<Prestamo>>(
       `${this.baseUrl()}/api/Prestamo/${id}`,
       model
     );
   }
   deletePrestamo(id: number): Observable<IRespuestaAPI<Prestamo>> {
     return this.http.delete<IRespuestaAPI<Prestamo>>(
-      `${this.baseUrl()}/api/Prestamo`
+      `${this.baseUrl()}/api/Prestamo/${id}`
     );
   }
 }
