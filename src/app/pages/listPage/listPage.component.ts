@@ -37,19 +37,26 @@ export class ListPageComponent implements OnInit {
     this.cargarPrestamos();
   }
   private cargarPrestamos() {
-    this._prestamoService.getPrestamos().subscribe(
-      (resp) => {
+    this._prestamoService.getPrestamos().subscribe({
+      next: (resp) => {
         if (resp.isSuccess) {
           this.listadoPrestamos.set(resp.result);
           this.displaySnackbar(resp.message, 3500);
         }
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         const myError = error.error as IRespuestaAPI<Prestamo>;
-
+        if (error.status === 0) {
+          this.displaySnackbar('El servidor no responde', 4000);
+        } else if (error.status === 404) {
+          this.displaySnackbar(error.message, 3500);
+        }
         this.displaySnackbar(myError.message, 4000);
-      }
-    );
+      },
+      complete() {
+        console.log('Se ha completado la petición');
+      },
+    });
   }
 
   private displaySnackbar(message: string, duration: number) {
@@ -64,20 +71,20 @@ export class ListPageComponent implements OnInit {
     if (!id) {
       throw new Error('No se envió un id');
     }
-    this._prestamoService.getPrestamo(id).subscribe(
-      (data) => {
-        if (data.isSuccess) {
-          this._prestamoActual = data.result;
+    this._prestamoService.getPrestamo(id).subscribe({
+      next: (data) => {
+        if (data) {
+          this._prestamoActual = data;
         } else {
-          this.displaySnackbar(data.message, 4000);
+          this.displaySnackbar(data, 4000);
         }
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         const myError = error.error as IRespuestaAPI<Prestamo>;
         this.displaySnackbar(myError.message, 4000);
         console.log('Error:', myError);
-      }
-    );
+      },
+    });
     //*Mostrar => display dialog
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: this._prestamoActual,
