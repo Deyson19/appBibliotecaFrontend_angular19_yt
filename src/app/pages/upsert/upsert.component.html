@@ -1,0 +1,75 @@
+<div class="card mt-2 shadow-sm border-5">
+  <div class="card-header">
+    <h1 class="text-success text-center">
+      {{ tituloFormulario }}
+    </h1>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" class="example-form" [formGroup]="form">
+      <div class="d-flex justify-content-around">
+        <div class="row">
+          <div class="col">
+            <div class="input-group mb-2">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Isbn del Libro</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  placeholder="Isbn para el libro"
+                  formControlName="isbn"
+                />
+              </mat-form-field>
+              @if (form.get("isbn")?.invalid && form.get("isbn")?.touched) {
+              <span class="text-danger">
+                <mat-error> El isbn no es válido </mat-error>
+              </span>
+              }
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group mb-2">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Identificación</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  placeholder="Identificacion Usuario"
+                  formControlName="identificacionUsuario"
+                />
+              </mat-form-field>
+              @if (form.get("identificacionUsuario")?.invalid &&
+              form.get("identificacionUsuario")?.touched) {
+              <span class="text-danger">
+                <mat-error> La Identificacion no es correcta </mat-error>
+              </span>
+              }
+            </div>
+          </div>
+        </div>
+        <div>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> Tipo de Usuario </mat-label>
+            <mat-select formControlName="tipoUsuarioId">
+              @for (tipoUsuario of tiposUsuario(); track $index) {
+              <mat-option [value]="tipoUsuario.id">
+                {{ tipoUsuario.name }}
+              </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="d-grid gap-2">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [ngClass]="!form.valid ? 'disabled' : 'active'"
+        >
+          {{ textoBoton }}
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
