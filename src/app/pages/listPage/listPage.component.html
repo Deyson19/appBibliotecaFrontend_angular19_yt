@@ -3,8 +3,13 @@
 <mat-divider></mat-divider>
 <div class="m-2 shadow-sm">
   <div class="mat-elevation-28">
-    <div class="table-responsive">
+    <section class="mx-auto text-center">
       <h2 class="text-center text-primary">Total de Registros</h2>
+      <span class="text-black">
+        {{ listadoPrestamos().length }}
+      </span>
+    </section>
+    <div class="table-responsive">
       <table class="table table-stripped">
         <thead>
           <tr>

@@ -98,10 +98,11 @@ export class ListPageComponent implements OnInit {
           //*escuchar valor boolean devuelto
           (confirm: boolean) => confirm
         ),
-        switchMap(() =>
-          //*hacer petición para eliminar
-          //this._prestamoService.deletePrestamo(this._prestamoActual!.id)
-          this._prestamoService.getPrestamo(id)
+        switchMap(
+          () =>
+            //*hacer petición para eliminar
+            this._prestamoService.deletePrestamo(this._prestamoActual!.id)
+          //this._prestamoService.getPrestamo(id)
         ),
         filter((wasDelete: any) => {
           const prestamo = wasDelete as Prestamo;
